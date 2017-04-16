@@ -12,5 +12,6 @@
 hs_err_pid*
 
 
-\Ecommerce_Backend\Target
-\Ecommerce_Backend\Target
+/Ecommerce_Backend/target
+/Ecommerce_Backend/target
+/bower_components
