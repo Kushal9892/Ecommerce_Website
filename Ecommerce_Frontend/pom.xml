@@ -7,10 +7,23 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Ecommerce_Frontend Maven Webapp</name>
 	<url>http://maven.apache.org</url>
+	
 	<properties>
 		<spring.version>4.3.4.RELEASE</spring.version>
 	</properties>
+	
 	<dependencies>
+		
+		
+		<!--  Linking with the Backend Project -->
+		<!-- <dependency>
+			<groupId>com.niit</groupId>
+			<artifactId>Ecommerce_Backend</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		-->
+		
+		<!-- jUnit -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -39,8 +52,15 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-
-	</dependencies>
+		
+		<!-- Faster XML -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.8.6</version>
+		</dependency>
+	</dependencies> 
+	
 	<build>
 		<!-- To change the version of JRE -->
 		<plugins>

@@ -1,6 +1,6 @@
-<div class="container">
-	<footer class="footer">
-		<hr />
-		&copy; Copyrights. All rights reserved.
-	</footer>
-</div>
+<!-- Footer -->
+    <footer>
+        <div class="container text-center">
+            <p>Copyright &copy; Your Website 2016</p>
+        </div>
+    </footer>

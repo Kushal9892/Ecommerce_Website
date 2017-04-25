@@ -1,5 +1,6 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -10,16 +11,18 @@
 
 	<context:component-scan base-package="com.niit.ecommercefrontend" />
 
+	<!-- Loading static resources -->
 	<mvc:annotation-driven />
+	
+	<!-- To load static resources from a specific folder.
+	In our case it would be resources folder only inside webapp -->
 
+	<mvc:resources location="/resources/" mapping="/resources/**"></mvc:resources>
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
-	<!-- To load static resources from a specific folder.
-	In our case it would be resources folder only inside webapp -->
-
-	<mvc:resources location="/resources/" mapping="/resources/**"></mvc:resources>
+	
 </beans>

@@ -2,6 +2,7 @@ package com.niit.ecommercefrontend;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -15,11 +16,11 @@ public class PageController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/about")
+	@RequestMapping(value = "/about")	
 	public ModelAndView about() {
 		ModelAndView mv = new ModelAndView("page");
 		mv.addObject("ifUserClickedAbout", true);
-		mv.addObject("title", "about");
+		mv.addObject("title", "About Us");
 		return mv;
 	}
 
@@ -27,7 +28,7 @@ public class PageController {
 	public ModelAndView contact() {
 		ModelAndView mv = new ModelAndView("page");
 		mv.addObject("ifUserClickedContact", true);
-		mv.addObject("title", "contact");
+		mv.addObject("title", "Contact Us");
 		return mv;
 	}
 
@@ -35,8 +36,7 @@ public class PageController {
 	public ModelAndView login() {
 		ModelAndView mv = new ModelAndView("page");
 		mv.addObject("ifUserClickedLogin", true);
-		mv.addObject("title", "login");
+		mv.addObject("title", "Login");
 		return mv;
 	}
-
 }
