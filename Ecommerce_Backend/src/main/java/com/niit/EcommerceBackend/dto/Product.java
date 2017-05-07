@@ -1,4 +1,4 @@
-package com.niit.EcommerceBackend.entity;
+package com.niit.EcommerceBackend.dto;
 
 public class Product {
 	private int productID;

@@ -2,11 +2,12 @@ package com.niit.EcommerceBackend.dao;
 
 import java.util.List;
 
-import com.niit.EcommerceBackend.entity.Category;
+import com.niit.EcommerceBackend.dto.Category;
 
 public interface CategoryDAO {
+	
 	//get
-	Category getCategory (int categoryID);
+	Category getCategoryID(int categoryID);
 	
 	//list
 	List<Category> getListCategory();
@@ -19,5 +20,8 @@ public interface CategoryDAO {
 	
 	//delete
 	boolean deleteCategory(Category category);
+	
+	//test list
+	//List<Category> list();
 	
 }

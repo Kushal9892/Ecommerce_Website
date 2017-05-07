@@ -1,5 +1,6 @@
 $(function() {
 	//Solving the active-menu problem!!
+	//using the window.menu property of the page.jsp
 	switch(menu) {
 	
 	case 'About Us':
@@ -10,8 +11,14 @@ $(function() {
 		$('#contact').addClass('active');
 		break;
 		
+	case 'All Products':
+		$('#listProducts').addClass('active');
+		break;
+		
 	default:
-		$('#home').addClass('active');
+		if(menu == "Home")
+			break;
+		$('#listProducts').addClass('active');
 		break;
 	}
 });
