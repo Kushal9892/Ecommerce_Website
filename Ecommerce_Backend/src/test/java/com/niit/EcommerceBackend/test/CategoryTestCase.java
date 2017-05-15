@@ -1,4 +1,4 @@
-/*package com.niit.EcommerceBackend.test;
+package com.niit.EcommerceBackend.test;
 
 import static org.junit.Assert.assertEquals;
 
@@ -97,15 +97,4 @@ public class CategoryTestCase {
 		//Fetching the list!!
 		assertEquals("Failed to fetch the list of categories!!",3,categoryDAO.getListCategory().size());
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
-*/

@@ -21,7 +21,4 @@ public interface CategoryDAO {
 	//delete
 	boolean deleteCategory(Category category);
 	
-	//test list
-	//List<Category> list();
-	
 }

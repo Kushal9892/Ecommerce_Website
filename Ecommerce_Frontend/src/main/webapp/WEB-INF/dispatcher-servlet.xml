@@ -11,6 +11,7 @@
 
 	<context:component-scan base-package="com.niit.ecommercefrontend" />
 	<context:component-scan base-package="com.niit.EcommerceBackend" />
+	<context:component-scan base-package="com.niit.EcommerceBackend.test" />
 
 	<!-- Loading static resources -->
 	<mvc:annotation-driven />

@@ -10,6 +10,7 @@
 <!--  specifies the root directory of the project which is Ecommerce_Frontend -->
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,26 +22,23 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>SalesRack.in - ${title}</title>
-
+<title>Online Shopping - ${title}</title>
 <script>
 	window.menu = '${title}';
+	window.contextRoot = '${contextRoot}';
 </script>
 
 <!-- Bootstrap Core CSS -->
 <link href="${css}/bootstrap.min.css" rel="stylesheet">
 
-<!-- Bootstrap Slate Theme -->
-<link href="${css}/bootstrap-slate-theme.css" rel="stylesheet">
+<!-- Bootstrap Solar Theme -->
+<link href="${css}/bootstrap-solar-theme.css" rel="stylesheet">
 
-<!-- Custom Fonts -->
-<link href="${css}/font-awesome.min.css" rel="stylesheet"
-	type="text/css">
-<link href="${css}/family-lora.css" rel="stylesheet" type="text/css">
-<link href="${css}/family-montserrat.css" rel="stylesheet"
-	type="text/css">
+<!-- Bootstrap DataTable -->
+<!-- This file added the sort option and aligned the table (Search) -->
+<link href="${css}/dataTables.bootstrap.css" rel="stylesheet">
 
-<!-- Theme CSS -->
+<!-- Custom CSS -->
 <link href="${css}/myapp.css" rel="stylesheet">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -52,58 +50,59 @@
 
 </head>
 
-<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<body>
+	<div class="wrapper">
+		<!-- Navigation -->
+		<%@include file="./shared/navbar.jsp"%>
 
-	<!-- Navigation -->
-	<%@include file="./shared/navbar.jsp"%>
+		<!-- Page Content -->
+		<div class="content">
+			
+			<!--  Home -->
+			<c:if test="${ifUserClickedHome == true}">
+				<%@include file="home.jsp"%>
+			</c:if>
 
-	<!-- Page Content -->
-	<c:if test="${ifUserClickedHome == true}">
-		<%@include file="home.jsp"%>
-	</c:if>
+			<!--  About Us -->
+			<c:if test="${ifUserClickedAbout == true}">
+				<%@include file="about.jsp"%>
+			</c:if>
 
-	<!-- Load this page only when user clicks 'About Us' link -->
-	<c:if test="${ifUserClickedAbout == true}">
-		<%@include file="about.jsp"%>
-	</c:if>
+			<!--  Contact Us -->
+			<c:if test="${ifUserClickedContact == true}">
+				<%@include file="contact.jsp"%>
+			</c:if>
+			
+			<!--  Products -->
+			<c:if test="${ifUserClickedAllProducts == true or ifUserClickedCategoryProducts == true}">
+				<%@include file="listProducts.jsp"%>
+			</c:if>
+			
+			<!--  Load only when user clicks show product -->
+			<c:if test="${ifUserClickedShowProduct == true}">
+				<%@include file="singleProduct.jsp"%>
+			</c:if>
+		</div>
+		
+		<!--  Footer -->
+		<%@include file="./shared/footer.jsp"%>
 
-	<!-- Load this page only when user clicks 'Contact Us' link -->
-	<c:if test="${ifUserClickedContact == true}">
-		<%@include file="contact.jsp"%>
-	</c:if>
+		<!-- jQuery -->
+		<script src="${js}/jquery.js"></script>
 
-	<!-- Load this page only when user clicks 'All Products' link -->
-	<c:if test="${ifUserClickedAllProducts == true}">
-		<%@include file="listProducts.jsp"%>
-	</c:if>
+		<!-- Bootstrap Core JavaScript -->
+		<script src="${js}/bootstrap.min.js"></script>
+		
+		<!-- Data Tables (Core dataTable file) -->
+		<script src="${js}/jquery.dataTables.js"></script>
+		
+		<!-- Data Tables Bootstrap Script -->
+		<!-- This file added the styling for previous & next buttons -->
+		<script src="${js}/dataTables.bootstrap.js"></script>
 
-	<!-- Map Section -->
-	<div id="map"></div>
-
-	<!-- Footer -->
-	<%@include file="./shared/footer.jsp"%>
-
-	<!-- jQuery -->
-	<script src="${js}/jquery.js"></script>
-
-	<!-- Bootstrap Core JavaScript -->
-	<script src="${js}/bootstrap.min.js"></script>
-
-
-
-	<!-- Plugin JavaScript -->
-	<script src="${js}/jquery.easing.min.js"></script>
-
-	<!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
-	<script type="text/javascript"
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
-
-	<!-- Theme JavaScript -->
-	<script src="${js}/grayscale.min.js"></script>
-
-	<!-- Self-Coded JavaScript -->
-	<script src="${js}/myapp.js"></script>
-
+		<!-- Self coded JS -->
+		<script src="${js}/myapp.js"></script>
+	</div>
 </body>
 
 </html>
