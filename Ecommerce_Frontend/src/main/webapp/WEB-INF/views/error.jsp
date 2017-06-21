@@ -3,7 +3,8 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <spring:url var="images" value="/resources/images" />
-
+<spring:url var="css" value="/resources/css" />
+<spring:url var="js" value="/resources/js" />
 
 <!--  specifies the root directory of the project which is Ecommerce_Frontend -->
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
@@ -62,7 +63,7 @@
 						<div class="jumbotron">
 							<h1>${errorTitle}</h1>
 							<hr/>
-							<blockquote>
+							<blockquote style="word-wrap: break-word" >
 								${errorDescription}
 							</blockquote>
 						</div>

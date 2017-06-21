@@ -2,12 +2,16 @@ package com.niit.EcommerceBackend.dto;
 
 import java.util.UUID;
 
-import javax.jms.JMSSessionMode;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import com.fasterxml.jackson.*;
+import javax.persistence.Transient;
+import javax.validation.constraints.Min;
+
+import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -15,22 +19,45 @@ public class Product {
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int productID;
+
 	private String productCode;
+	
+	@NotBlank(message="Please enter the Product Name!")
 	private String productName;
+	
+	@NotBlank(message="Please enter the Product Brand!")
 	private String productBrand;
+	
 	@JsonIgnore
+	@NotBlank(message="Please enter the Product Description!")
 	private String productDescription;
+	
+	@Min(value = 1, message="The price cannot be less than 1!")
 	private String productUnitPrice;
 	private int productQuantity;
-	@JsonIgnore
+	
 	private boolean productIsActive;
+	
 	@JsonIgnore
 	private int categoryID;
+	
 	@JsonIgnore
 	private int supplierID;
+	
 	private int productPurchases;
 	private int productViews;
 	
+	@Transient
+	private MultipartFile file;
+	
+	public MultipartFile getFile() {
+		return file;
+	}
+
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
+
 	//Product Code generation from default constructor!!
 	public Product() {
 		this.productCode = "PRD" + UUID.randomUUID().toString().substring(26).toUpperCase();
@@ -79,7 +106,7 @@ public class Product {
 	public void setProductQuantity(int productQuantity) {
 		this.productQuantity = productQuantity;
 	}
-	public boolean isProductIsActive() {
+	public boolean getProductIsActive() {
 		return productIsActive;
 	}
 	public void setProductIsActive(boolean productIsActive) {

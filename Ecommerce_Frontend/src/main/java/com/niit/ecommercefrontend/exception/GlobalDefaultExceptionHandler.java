@@ -1,5 +1,8 @@
 package com.niit.ecommercefrontend.exception;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
@@ -12,7 +15,7 @@ public class GlobalDefaultExceptionHandler {
 	public ModelAndView handleNoHandLerFoundException() {
 		ModelAndView mv = new ModelAndView("error");
 		mv.addObject("errorTitle", "This page is not constructed!!");
-		mv.addObject("errorescription", "This page that you are looking for is not available now!!");
+		mv.addObject("errorDescription", "This page that you are looking for is not available now!!");
 		mv.addObject("title", "404 Error Page");
 		return mv;
 	}
@@ -21,8 +24,8 @@ public class GlobalDefaultExceptionHandler {
 	public ModelAndView ProductNotFoundException() {
 		ModelAndView mv = new ModelAndView("error");
 		mv.addObject("errorTitle", "Product not available!!");
-		mv.addObject("errorescription", "This product that you are looking for is not available now!!");
-		mv.addObject("title", "Product not avialable!!");
+		mv.addObject("errorDescription", "This product that you are looking for is not available now!!");
+		mv.addObject("title", "Product not available!!");
 		return mv;
 	}
 	
@@ -30,7 +33,12 @@ public class GlobalDefaultExceptionHandler {
 	public ModelAndView handlerException(Exception ex) {
 		ModelAndView mv = new ModelAndView("error");
 		mv.addObject("errorTitle", "Contact your administrator!!");
-		mv.addObject("errorescription", ex.toString());
+		// Only for Debugging!!
+		StringWriter sw = new StringWriter();
+		PrintWriter pw = new PrintWriter(sw);
+		ex.printStackTrace(pw);
+		mv.addObject("errorDescription", sw.toString());
+		//mv.addObject("errorDescription", ex.toString());
 		mv.addObject("title", "Error!!");
 		return mv;
 	}

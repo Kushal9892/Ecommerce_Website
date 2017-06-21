@@ -43,26 +43,31 @@
 				Price: <strong> &#8377; ${product.productUnitPrice} /-</strong>
 			</h4>
 			<hr />
-			
+
 			<c:choose>
 				<c:when test="${product.productQuantity < 1}">
-					<h6>Quantity Available: <span style="color:red">Out of Stock!!</span></h6>
+					<h6>
+						Quantity Available: <span style="color: red">Out of Stock!!</span>
+					</h6>
 				</c:when>
 				<c:otherwise>
 					<h6>Quantity Available : ${product.productQuantity}</h6>
 				</c:otherwise>
 			</c:choose>
-			
+
 			<!-- Disabling the add to cart option for out of stock products -->
 			<c:choose>
 				<c:when test="${product.productQuantity < 1}">
-					<<a href="javascript:void(0)" class="btn btn-success disabled"><strike><span class="glyphicon glyphicon-shopping-cart"></span>Add to Cart</strike></a>
+					<a href="javascript:void(0)" class="btn btn-success disabled"><strike><span
+							class="glyphicon glyphicon-shopping-cart"></span>Add to Cart</strike></a>
 				</c:when>
 				<c:otherwise>
-					<a href="${contextRoot}/cart/add/${product.productID}/product" class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart"></span> Add to Cart</a>
+					<a href="${contextRoot}/cart/add/${product.productID}/product"
+						class="btn btn-success"><span
+						class="glyphicon glyphicon-shopping-cart"></span> Add to Cart</a>
 				</c:otherwise>
 			</c:choose>
-			
+
 			<a href="${contextRoot}/show/all/products" class="btn btn-primary">Back</a>
 		</div>
 
