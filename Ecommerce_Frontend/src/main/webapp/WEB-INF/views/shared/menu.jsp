@@ -15,7 +15,7 @@
 					<li class="active"><a href="${contextPath}/index">Home</a></li>
 					<li><a href="${contextPath}/about">About</a></li>
 					<li><a href="${contextPath}/contact">Contact</a></li>
-					<li><a href="${contextPath}/Login">Login</a></li>
+					<li><a href="${contextPath}/login">Login</a></li>
 				</ul>
 			</div>
 			<!--/.nav-collapse -->

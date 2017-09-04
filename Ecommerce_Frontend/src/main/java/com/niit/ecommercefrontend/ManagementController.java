@@ -123,7 +123,7 @@ public class ManagementController {
 		// Updating the product!!
 		productDAO.updateProduct(product);
 		return (isActive)? "You have successfully deactivated the product with ID "+product.getProductID()
-		: "You have successfully deactivated the product with ID "+product.getProductID();
+		: "You have successfully activated the product with ID "+product.getProductID();
 	}
 	
 	// To handle Category Submission

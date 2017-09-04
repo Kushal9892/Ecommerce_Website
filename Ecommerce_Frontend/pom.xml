@@ -10,6 +10,7 @@
 
 	<properties>
 		<spring.version>4.3.4.RELEASE</spring.version>
+		<spring.security.version>4.2.2.RELEASE</spring.security.version>
 	</properties>
 
 	<dependencies>
@@ -47,6 +48,13 @@
 			<artifactId>standard</artifactId>
 			<version>1.1.2</version>
 			<scope>compile</scope>
+		</dependency>
+		
+		<!-- Spring Webflow -->
+		<dependency>
+			<groupId>org.springframework.webflow</groupId>
+			<artifactId>spring-webflow</artifactId>
+			<version>2.4.4.RELEASE</version>
 		</dependency>
 
 		<!-- Spring Web MVC -->
@@ -86,8 +94,26 @@
 			<artifactId>jackson-annotations</artifactId>
 			<version>2.8.6</version>
 		</dependency>
+		
+		<!-- Spring Security -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
 	</dependencies>
-
 	
 	<!-- Maven by default uses this compiler plugin -->
 	<build>

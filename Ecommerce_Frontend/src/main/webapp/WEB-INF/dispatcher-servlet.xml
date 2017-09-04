@@ -1,17 +1,19 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:wf="http://www.springframework.org/schema/webflow-config" 
+	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans.xsd
     http://www.springframework.org/schema/mvc
     http://www.springframework.org/schema/mvc/spring-mvc.xsd
+    http://www.springframework.org/schema/webflow-config
+    http://www.springframework.org/schema/webflow-config/spring-webflow-config.xsd
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<context:component-scan base-package="com.niit.ecommercefrontend" />
-	<context:component-scan base-package="com.niit.EcommerceBackend" />
-	<context:component-scan base-package="com.niit.EcommerceBackend.test" />
-
+	
 	<!-- Loading static resources -->
 	<mvc:annotation-driven />
 
@@ -28,5 +30,44 @@
 	<!-- ID must be multipartResolver for Image Upload -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.support.StandardServletMultipartResolver" />
-
+		
+		
+	<!-- Webflow Configuration -->
+	<!-- Start entry point for the flow -->
+	<wf:flow-executor id="flowExecutor" flow-registry="flowRegistry"/>
+	
+	<wf:flow-registry id="flowRegistry" base-path="/WEB-INF/views/flows" flow-builder-services="flowBuilderServices">
+		<!-- Flow Registry is used to provide the path of the flow.xml file -->
+		<wf:flow-location-pattern value="/**/*-flow.xml" />
+		<!-- ** is for any number of directories in the base path "/WEB-INF/views/flows"  -->
+	</wf:flow-registry>
+	
+	<wf:flow-builder-services id="flowBuilderServices" view-factory-creator="viewFactoryCreator" validator="validator" />
+		<!-- Flow Builder Services are used to resolve the view -->
+		<!-- viewFactoryCreator is a bean that would be defined later -->
+		
+	
+	<!-- DispatcherServlet(XML)/FlowHandlerMapping - FlowHandlerAdapter - FlowExecutor(XML) -->
+	
+	<!-- Spring webflow provides a Spring MVC handler adapter called FlowHandlerAdapter, 
+		it acts as a bridge between the DispatcherServlet and the flow executor, handling requests 
+		and manipulating the flow as per the requests -->
+	<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
+		<property name="flowExecutor" ref="flowExecutor" />
+	</bean>
+	
+	<!-- DispatcherServlet will consult the FlowHandlerMapping and will send the flow request to the FlowHandlerAdapter -->
+	<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
+		<property name="flowRegistry" ref="flowRegistry" />
+		<property name="order" value="-1"></property>
+	</bean>
+	
+	<!-- For resolving views for the webflow,  we will add one more bean which will point to the ViewResolver -->
+	<bean id="viewFactoryCreator" class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator">
+		<property name="viewResolvers" ref="viewResolver" />
+	</bean>
+	
+	<!-- Validator Bean -->
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+	
 </beans>

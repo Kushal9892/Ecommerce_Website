@@ -18,6 +18,14 @@ $(function() {
 	case 'Manage Products':
 		$('#manageProducts').addClass('active');
 		break;
+		
+	case 'Login':
+		$('#login').addClass('active');
+		break;
+		
+	case 'Sign Up':
+		$('#signUp').addClass('active');
+		break;
 
 	default:
 		if (menu == "Home")
@@ -27,6 +35,18 @@ $(function() {
 		break;
 	}
 
+	// To tackle the CSRF token!!
+	var token = $('meta[name="_csrf"]').attr('content');
+	var header = $('meta[name="_csrf_header"]').attr('content');
+	
+	if(token.length > 0 && header.length > 0) {
+		
+		// Set the Token Header for the Ajax request!!
+		$(document).ajaxSend(function(e, xhr, options) {
+			xhr.setRequestHeader(header,token);
+		});
+	}
+	
 	// code for jquery dataTable!!
 
 	// $table is a jquery element, and we are getting the table using the id
@@ -48,33 +68,24 @@ $(function() {
 					+ window.categoryId + '/products';
 		}
 
-		// DataTable function is used to display the products in tabular
-		// format!!
+		// DataTable function is used to display the products in tabular format!!
 		$table
 				.dataTable({
 					// -1 is used to display all items
 					lengthMenu : [
-							[ 3, 5, 10, -1 ],
-							[ '3 Records', '5 Records', '10 Records',
-									'All Records' ] ],
+							[ 3, 5, 10, -1 ],[ '3 Records', '5 Records', '10 Records','All Records' ] ],
 					// To display the number to entries on a page by default!!
 					pageLength : 10,
 
 					ajax : {
 						url : jsonUrl,
-						dataSrc : '' // Because there is no name to the
-										// collection of products array in
-										// Postman!!
+						dataSrc : '' // Because there is no name to the collection of products array in Postman!!
 					},
 					columns : [
 							{
 								data : 'productCode',
 								mRender : function(data, type, row) {
-									return '<img src="'
-											+ window.contextRoot
-											+ '/resources/images/'
-											+ data
-											+ '.jpg" class="dataTablesImages"/>';
+									return '<img src="'+ window.contextRoot+ '/resources/images/'+ data+ '.jpg" class="dataTablesImages"/>';
 								}
 							},
 							{
@@ -85,8 +96,7 @@ $(function() {
 							},
 							{
 								data : 'productUnitPrice',
-								// To add the rupee symbol in the unit price
-								// column!!
+								// To add the rupee symbol in the unit price column!!
 								mRender : function(data, type, row) {
 									return '&#8377; ' + data;
 								}
@@ -102,33 +112,21 @@ $(function() {
 							},
 							{
 								data : 'productID',
-								bSortable : false, // To remove the sort option
-													// over the glyphicons!!
+								bSortable : false, // To remove the sort option over the glyphicons!!
 								mRender : function(data, type, row) {
 									var str = '';
-									str += '<a href = "'
-											+ window.contextRoot
-											+ '/show/'
-											+ data
-											+ '/product" class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></a> &#160;'; 
-									// &#160; is used
-																																					// to
-																																					// add
-																																					// an
-																																					// extra
-																																					// space
-																																					// between
-																																					// the
-																																					// glyphicons!!
+									str += '<a href = "'+ window.contextRoot+ '/show/'+ data+ '/product" class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></a> &#160;'; 
+									// &#160; is used to add an extra space between the glyphicons!!
 
-									if (row.quantity < 1) {
-										str += '<a href = "javascript:void(0)" class="btn btn-success disabled"><span class="glyphicon glyphicon-shopping-cart"></span></a>';
+									if (window.userRole == 'ADMIN') {
+										str += '<a href = "'+ window.contextRoot+ '/manage/'+ data + '/product" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>';
 									} else {
-										str += '<a href = "'
-												+ window.contextRoot
-												+ '/cart/add/'
-												+ data
-												+ '/product" class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart"></span></a>';
+										
+										if (row.quantity < 1) {
+											str += '<a href = "javascript:void(0)" class="btn btn-success disabled"><span class="glyphicon glyphicon-shopping-cart"></span></a>';
+										} else {
+											str += '<a href = "'+ window.contextRoot + '/cart/add/'+ data + '/product" class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart"></span></a>';
+											}
 									}
 									return str;
 								}
@@ -229,11 +227,9 @@ $(function() {
 									str += '<label class="switch">';
 
 									if (data) {
-										str += '<input type="checkbox" checked="checked" value="'
-												+ row.productID + '"/>';
+										str += '<input type="checkbox" checked="checked" value="'+ row.productID + '"/>';
 									} else {
-										'<input type="checkbox" value="'
-												+ row.productID + '"/>';
+										str += '<input type="checkbox" value="'+ row.productID + '"/>';
 									}
 									str += '<div class="slider"></div></label>';
 									return str;
@@ -246,11 +242,7 @@ $(function() {
 								mRender : function(data, type, row) {
 
 									var str = '';
-									str += '<a href="'
-											+ window.contextRoot
-											+ '/manage/'
-											+ data
-											+ '/product" class="btn btn-warning">';
+									str += '<a href="'+ window.contextRoot+ '/manage/'+ data+ '/product" class="btn btn-warning">';
 									str += '<span class="glyphicon glyphicon-pencil"></span></a>';
 									return str;
 								}
@@ -280,10 +272,7 @@ $(function() {
 															if (confirmed) {
 																console.log(value);
 
-																var activationUrl = window.contextRoot
-																		+ '/manage/product/'
-																		+ value
-																		+ '/activation';
+																var activationUrl = window.contextRoot+ '/manage/product/'+ value+ '/activation';
 																$
 																		.post(activationUrl,function(data) {
 																					bootbox.alert({
@@ -351,9 +340,47 @@ $(function() {
 	
 	//----------------------------------------
 	
-	
-	
-	
-	
+	// jQuery Validation code for Login!!
 
+	var $loginForm = $('#loginForm');
+	if ($loginForm.length) {
+
+		$loginForm.validate({
+
+			rules : {
+
+				username : {
+					required : true,
+					email : true
+				},
+
+				password : {
+					required : true
+				}
+			},
+
+			messages : {
+				
+				username: {
+					required : 'Please enter the username!!',
+					email : 'Please enter a valid Email address!!'
+				},
+				
+				password : {
+					required : 'Please enter the password!!'
+				}
+			},
+			
+			errorElement: 'em',
+			errorPlacement: function(error, element) {
+				// Add the class of help-block!!
+				error.addClass("help-block");
+				
+				// Add the error element after the input element!!
+				error.insertAfter(element);
+			}
+
+		});
+	}
+	
 });

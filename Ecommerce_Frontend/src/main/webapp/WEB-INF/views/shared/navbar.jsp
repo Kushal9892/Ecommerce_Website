@@ -1,3 +1,5 @@
+<%@taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+
 <!-- Navigator -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 	<div class="container">
@@ -14,6 +16,7 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
+			
 			<ul class="nav navbar-nav">
 				<li id="listProducts">
 					<a href="${contextRoot}/show/all/products">View Products</a>
@@ -24,12 +27,63 @@
 				<li id="contact">
 					<a href="${contextRoot}/contact">Contact</a>
 				</li>
-				<li id="manageProducts">
-					<a href="${contextRoot}/manage/products">Manage Products</a>
-				</li>
+				
+				<security:authorize access="hasAuthority('ADMIN')">
+					<li id="manageProducts">
+						<a href="${contextRoot}/manage/products">Manage Products</a>
+					</li>
+				</security:authorize>
+			</ul>
+			
+			<ul class="nav navbar-nav navbar-right">
+				
+				<security:authorize access="isAnonymous()">
+					<li id="register">
+						<a href="${contextRoot}/register">Sign Up</a>
+					</li>
+					
+					<li id="login">
+						<a href="${contextRoot}/login">Login</a>
+					</li>
+				</security:authorize>
+				
+				<security:authorize access="isAuthenticated()">
+					<li class="dropdown">
+						<a href="javascript:void(0)" class="btn btn-primary dropdown-toggle"
+							id="drropdownMenu1" data-toggle="dropdown">
+								${userModel.userFullName}
+							<span class="caret"></span>
+						</a>
+						
+						<ul class="dropdown-menu">
+							
+							<security:authorize access="hasAuthority('USER')">
+								<li>
+									<a href="${contextRoot}/cart">
+										<span class="glyphicon glyphicon-shopping-cart"></span>
+										<span class="badge">${userModel.cart.cartLines}</span>
+										 - &#8377; ${userModel.cart.grandTotal}
+									</a>
+								</li>
+								
+								<!-- Adds a seperate line after the cart in the dropdown -->
+								<li class="divider" role="seperator"></li> 
+							</security:authorize>
+							
+							<li>
+								<a href="${contextRoot}/perform-logout">Logout</a>
+							</li>
+						</ul>
+					
+					</li>
+				</security:authorize>
 			</ul>
 		</div>
 		<!-- /.navbar-collapse -->
 	</div>
 	<!-- /.container -->
 </nav>
+
+<script>
+	window.userRole = ${userModel.userRole};
+</script>

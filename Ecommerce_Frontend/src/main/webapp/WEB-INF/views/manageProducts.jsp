@@ -113,7 +113,7 @@
 									<div class="text-right">
 										<button type="button" data-toggle="modal"
 											data-target="#myCategoryModal"
-											class="button btn-warning btn-xs">Add Category</button>
+											class="btn btn-warning btn-xs">Add Category</button>
 									</div>
 								</c:if>
 							</div>
@@ -146,40 +146,40 @@
 		</div>
 
 		<div class="col-xs-12">
-			<div style="overflow: auto">
-
-				<!-- Products table for admin -->
-				<table id="adminProductsTable"
-					class="table table-striped table-bordered">
-
-					<thead>
-						<tr>
-							<th>Id</th>
-							<th>&#160;</th>
-							<th>Name</th>
-							<th>Brand</th>
-							<th>Quantity</th>
-							<th>Unit Price</th>
-							<th>Active</th>
-							<th>Edit</th>
-						</tr>
-					</thead>
-
-					<tfoot>
-						<tr>
-							<th>Id</th>
-							<th>&#160;</th>
-							<th>Name</th>
-							<th>Brand</th>
-							<th>Quantity</th>
-							<th>Unit Price</th>
-							<th>Active</th>
-							<th>Edit</th>
-						</tr>
-					</tfoot>
-
-
-				</table>
+			<div class="container-fluid">
+				<div class="table-responsive">
+					<!-- Products table for admin -->
+					
+					<table id="adminProductsTable"
+						class="table table-striped table-bordered">
+	
+						<thead>
+							<tr>
+								<th>Id</th>
+								<th>&#160;</th>
+								<th>Name</th>
+								<th>Brand</th>
+								<th>Quantity</th>
+								<th>Unit Price</th>
+								<th>Active</th>
+								<th>Edit</th>
+							</tr>
+						</thead>
+	
+						<tfoot>
+							<tr>
+								<th>Id</th>
+								<th>&#160;</th>
+								<th>Name</th>
+								<th>Brand</th>
+								<th>Quantity</th>
+								<th>Unit Price</th>
+								<th>Active</th>
+								<th>Edit</th>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>

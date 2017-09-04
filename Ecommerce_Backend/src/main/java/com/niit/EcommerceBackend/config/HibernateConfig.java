@@ -23,8 +23,8 @@ public class HibernateConfig {
 	private static final String DATABASE_USERNAME = "sa";
 	private static final String DATABASE_PASSWORD = "";
 	
-	//datasource bean will be available
-	@Bean
+	// datasource bean will be available
+	@Bean("dataSource")
 	public DataSource getDataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		//Providing database connection information!! 
@@ -50,6 +50,7 @@ public class HibernateConfig {
 		properties.put("hibernate.dialect",DATABASE_DIALECT);
 		properties.put("hibernate.show_sql","true");
 		properties.put("hibernate.format_sql","true");
+		properties.put("hibernate.hbm2ddl.auto", "update");
 		return properties;
 	}	
 	

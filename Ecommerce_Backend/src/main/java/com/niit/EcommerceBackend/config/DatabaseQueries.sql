@@ -17,10 +17,10 @@ INSERT INTO Category (categoryName, categoryDescription, categoryImageURL, categ
 CREATE TABLE UserDetails (
 	userID IDENTITY,
 	userFirstName VARCHAR(50),
-	userFLastName VARCHAR(50),
+	userLastName VARCHAR(50),
 	userRole VARCHAR(50),
 	userEnabled BOOLEAN,
-	userPassword VARCHAR(50),
+	userPassword VARCHAR(60),
 	userEmail VARCHAR(50),
 	userContactNumber VARCHAR(10),
 	
